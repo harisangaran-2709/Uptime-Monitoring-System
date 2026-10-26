@@ -61,17 +61,27 @@ public class JobDAO {
         return job1;
     }
 
-    public boolean updateJob() {
+    public boolean updateJob(Job job) throws SQLException{
+        String sql = "update monitor_manager set name = ?, target_url = ?, expected_status_code = ?, check_interval = ? where id = ?;";
+        try(Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+        ) {
+            ps.setString(1, job.get_name());
+            ps.setString(2, job.get_target_url());
+            ps.setInt(3, job.get_expected_status_code());
+            ps.setTimestamp(4, job.get_check_interval());
+            ps.setInt(5, job.getId());
 
-        return false;
+            return ps.executeUpdate() > 0;
+        }
     }
-    public boolean deleteJob(Job job) throws SQLException{
+    public boolean deleteJob(int id) throws SQLException{
         String sql = "delete from monitor_manager where id = ?;";
 
         try(Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
         ) {
-            ps.setInt(1, job.getId());
+            ps.setInt(1, id);
             return ps.executeUpdate()> 0;
         }
     }
