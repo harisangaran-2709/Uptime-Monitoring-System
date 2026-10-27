@@ -1,20 +1,21 @@
 package com.jobscheduler.app;
-import java.sql.Timestamp;
 
 public class Job {
-    int id;
-    String name;
-    String target_url;
-    int expected_status_code;
-    Timestamp check_interval;
-    boolean enabled;
+    private int id;
+    private String name;
+    private String target_url;
+    private int expected_status_code;
+    private int check_interval;
+    private boolean enabled;
 
-    public Job() {}
-    public Job(String name, String target_url, int expected_status_code, Timestamp check_interval) {
+    public Job() { }
+
+    public Job(String name, String target_url, int expected_status_code, int check_interval, boolean enabled) {
         this.name = name;
         this.target_url = target_url;
         this.expected_status_code = expected_status_code;
         this.check_interval = check_interval;
+        this.enabled = enabled;
     }
 
     public int getId() {
@@ -41,10 +42,16 @@ public class Job {
     public void set_expected_status_code(int expected_status_code) {
         this.expected_status_code = expected_status_code;
     }
-    public Timestamp get_check_interval() {
+    public int get_check_interval() {
         return check_interval;
     }
-    public void set_check_interval(Timestamp check_interval) {
+    public void set_check_interval(int check_interval) {
         this.check_interval = check_interval;
+    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
